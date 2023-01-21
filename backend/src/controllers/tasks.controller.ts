@@ -5,8 +5,8 @@ import {
   HttpStatus,
   Post,
 } from '@nestjs/common';
-import { Task } from './tasks.dto';
-import { TasksService } from './tasks.service';
+import { Task } from '../interfaces/tasks.dto';
+import { TasksService } from '../services/tasks.service';
 
 @Controller('tasks')
 export class TasksController {
