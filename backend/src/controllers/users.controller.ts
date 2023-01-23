@@ -8,7 +8,7 @@ import {
 import { User } from '../interfaces/users.dto';
 import { UsersService } from '../services/users.service';
 
-@Controller('tasks')
+@Controller('user')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -21,7 +21,7 @@ export class UsersController {
       throw new HttpException(
         {
           status: HttpStatus.FORBIDDEN,
-          error: 'Não foi possivel criar uma tarefa',
+          error: 'Não foi possivel criar uma usuário',
         },
         HttpStatus.FORBIDDEN,
         {

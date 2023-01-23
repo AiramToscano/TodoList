@@ -7,4 +7,4 @@ import { PrismaService } from 'src/model/PrismaService';
   controllers: [UsersController],
   providers: [UsersService, PrismaService],
 })
-export class TasksModule {}
+export class UsersModules {}
