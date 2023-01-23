@@ -1,11 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/model/PrismaService';
+import md5 from 'md5';
 import { User } from '../interfaces/users.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
-  async create(data: User) {
+  async create(dataUser: User) {
+    const md5password = md5(dataUser.password);
+    const data: User = {
+      username: dataUser.username,
+      password: md5password,
+    };
     const createusers = await this.prisma.user.create({
       data,
     });
