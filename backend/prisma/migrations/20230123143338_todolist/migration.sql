@@ -11,6 +11,13 @@ CREATE TABLE "users" (
 CREATE TABLE "posts" (
     "id" SERIAL NOT NULL,
     "title" VARCHAR(255) NOT NULL,
+    "authorId" INTEGER NOT NULL,
 
     CONSTRAINT "posts_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "posts_authorId_key" ON "posts"("authorId");
+
+-- AddForeignKey
+ALTER TABLE "posts" ADD CONSTRAINT "posts_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
