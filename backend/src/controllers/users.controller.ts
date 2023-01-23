@@ -15,13 +15,14 @@ export class UsersController {
   @Post()
   async createUser(@Body() data: User): Promise<object> {
     try {
+      await this.usersService.findUser(data);
       const newTask = await this.usersService.create(data);
       return newTask;
     } catch (error) {
       throw new HttpException(
         {
           status: HttpStatus.FORBIDDEN,
-          error: 'Não foi possivel criar uma usuário',
+          error: error.message,
         },
         HttpStatus.FORBIDDEN,
         {
