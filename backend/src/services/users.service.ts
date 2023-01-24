@@ -25,4 +25,13 @@ export class UsersService {
     if (verifyUser) throw new Error('Usuario já cadastrado');
     return true;
   }
+
+  async loginUser(data: User) {
+    const md5password = md5(data.password);
+    const verifyUser = await this.prisma.user.findFirst({
+      where: { username: data.username, password: md5password },
+    });
+    if (!verifyUser) throw new Error('Usuario não encontrado');
+    return verifyUser;
+  }
 }
