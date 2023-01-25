@@ -6,7 +6,9 @@ import {
   HttpStatus,
   Inject,
   Post,
+  Res,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { Task } from '../interfaces/tasks.dto';
 import { IServiceTaks, ItaksServices } from '../interfaces/ITaksService';
 
@@ -14,16 +16,16 @@ import { IServiceTaks, ItaksServices } from '../interfaces/ITaksService';
 export class TasksController {
   constructor(@Inject(IServiceTaks) private tasksService: ItaksServices) {}
 
-  @Post()
-  async createTaks(@Body() data: Task): Promise<object> {
+  @Post('/')
+  async createTaks(@Body() data: Task, @Res() res: Response): Promise<object> {
     try {
       const newTask = await this.tasksService.create(data);
-      return newTask;
+      return res.status(201).json(newTask);
     } catch (error) {
       throw new HttpException(
         {
           status: HttpStatus.FORBIDDEN,
-          error: 'Não foi possivel criar uma tarefa',
+          error: error.message,
         },
         HttpStatus.FORBIDDEN,
         {
@@ -33,22 +35,22 @@ export class TasksController {
     }
   }
 
-  // @Get()
-  // async getTaks(@Body() data: Task): Promise<object> {
-  //   try {
-  //     const newTask = await this.tasksService.create(data);
-  //     return newTask;
-  //   } catch (error) {
-  //     throw new HttpException(
-  //       {
-  //         status: HttpStatus.FORBIDDEN,
-  //         error: 'Não foi possivel criar uma tarefa',
-  //       },
-  //       HttpStatus.FORBIDDEN,
-  //       {
-  //         cause: error,
-  //       },
-  //     );
-  //   }
-  // }
+  @Post('/read')
+  async getTaks(@Body() id: string, @Res() res: Response): Promise<object> {
+    try {
+      const allTask = await this.tasksService.readAll(id);
+      return res.status(200).json(allTask);
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: error.message,
+        },
+        HttpStatus.FORBIDDEN,
+        {
+          cause: error,
+        },
+      );
+    }
+  }
 }
