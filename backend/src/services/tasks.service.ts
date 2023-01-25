@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/model/PrismaService';
-import { Task } from '../interfaces/tasks.dto';
+import { Task, TaskId } from '../interfaces/tasks.dto';
 
 @Injectable()
 export class TasksService {
@@ -19,6 +19,18 @@ export class TasksService {
       select: {
         id: false,
         title: true,
+      },
+    });
+    return createtaks;
+  }
+
+  async upadateTaks(data: TaskId) {
+    const createtaks = await this.prisma.post.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        title: data.title,
       },
     });
     return createtaks;
