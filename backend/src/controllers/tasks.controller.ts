@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   HttpException,
   HttpStatus,
   Inject,
@@ -62,6 +63,25 @@ export class TasksController {
     try {
       const updateTask = await this.tasksService.upadateTaks(data);
       return res.status(200).json(updateTask);
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: error.message,
+        },
+        HttpStatus.FORBIDDEN,
+        {
+          cause: error,
+        },
+      );
+    }
+  }
+
+  @Delete('/')
+  async deleteTaks(@Body() id: number, @Res() res: Response): Promise<object> {
+    try {
+      const updateTask = await this.tasksService.deleteTaks(id);
+      return res.status(204).json(updateTask);
     } catch (error) {
       throw new HttpException(
         {

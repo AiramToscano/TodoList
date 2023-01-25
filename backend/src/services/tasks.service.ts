@@ -35,4 +35,11 @@ export class TasksService {
     });
     return createtaks;
   }
+
+  async deleteTaks(id: TaskId) {
+    const createtaks = await this.prisma.post.delete({
+      where: id,
+    });
+    return createtaks;
+  }
 }
