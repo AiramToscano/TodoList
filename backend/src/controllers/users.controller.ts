@@ -5,15 +5,19 @@ import {
   HttpStatus,
   Res,
   Post,
+  Inject,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { User } from '../interfaces/users.dto';
-import { UsersService } from '../services/users.service';
 import { JWT } from '../utils/jwt';
+import { IServiceUser, IusersServices } from '../interfaces/IUsersServices';
 
 @Controller('user')
 export class UsersController {
-  constructor(private readonly usersService: UsersService, private jwt: JWT) {}
+  constructor(
+    @Inject(IServiceUser) private usersService: IusersServices,
+    private jwt: JWT,
+  ) {}
 
   @Post()
   async createUser(@Body() data: User): Promise<object> {
