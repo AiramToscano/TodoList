@@ -20,11 +20,11 @@ export class UsersController {
   ) {}
 
   @Post()
-  async createUser(@Body() data: User): Promise<object> {
+  async createUser(@Body() data: User, @Res() res: Response): Promise<object> {
     try {
       await this.usersService.findUser(data);
       const newTask = await this.usersService.create(data);
-      return newTask;
+      return res.status(HttpStatus.CREATED).json(newTask);
     } catch (error) {
       throw new HttpException(
         {
