@@ -22,7 +22,7 @@ export class UsersService {
     const verifyUser = await this.prisma.user.findFirst({
       where: { username: data.username },
     });
-    if (verifyUser) throw new Error('Usuario já cadastrado');
+    if (verifyUser) throw new Error('This user already exist');
     return true;
   }
 
@@ -31,7 +31,7 @@ export class UsersService {
     const verifyUser = await this.prisma.user.findFirst({
       where: { username: data.username, password: md5password },
     });
-    if (!verifyUser) throw new Error('Usuario não encontrado');
+    if (!verifyUser) throw new Error('This user already not exist');
     return verifyUser;
   }
 }

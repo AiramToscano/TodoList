@@ -5,22 +5,26 @@ import {
   HttpStatus,
   Res,
   Post,
+  Inject,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { User } from '../interfaces/users.dto';
-import { UsersService } from '../services/users.service';
 import { JWT } from '../utils/jwt';
+import { IServiceUser, IusersServices } from '../interfaces/IUsersServices';
 
 @Controller('user')
 export class UsersController {
-  constructor(private readonly usersService: UsersService, private jwt: JWT) {}
+  constructor(
+    @Inject(IServiceUser) private usersService: IusersServices,
+    private jwt: JWT,
+  ) {}
 
   @Post()
-  async createUser(@Body() data: User): Promise<object> {
+  async createUser(@Body() data: User, @Res() res: Response): Promise<object> {
     try {
       await this.usersService.findUser(data);
       const newTask = await this.usersService.create(data);
-      return newTask;
+      return res.status(HttpStatus.CREATED).json(newTask);
     } catch (error) {
       throw new HttpException(
         {
