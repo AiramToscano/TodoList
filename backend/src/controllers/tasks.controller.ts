@@ -55,7 +55,7 @@ export class TasksController {
     }
   }
 
-  @Put('/')
+  @Put('/update')
   async updateTaks(
     @Body() data: TaskId,
     @Res() res: Response,
@@ -77,7 +77,7 @@ export class TasksController {
     }
   }
 
-  @Delete('/')
+  @Delete('/delete')
   async deleteTaks(@Body() id: number, @Res() res: Response): Promise<object> {
     try {
       const updateTask = await this.tasksService.deleteTaks(id);

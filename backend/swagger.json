@@ -45,16 +45,10 @@
                 },
                 "responses": {
                     "400": {
-                        "description": "This user already exist"
-                    },
-                    "400": {
-                        "description": "username or password required"
-                    },
-                    "400": {
-                        "description": "space not allowed"
-                    },
-                    "400": {
-                        "description": "username or password shorts"
+                        "descriptionOne": "This user already exist",
+                        "descriptionTwo": "username or password required",
+                        "descriptionThree": "space not allowed",
+                        "descriptionFour": "username or password shorts"
                     },
                     "202": {
                         "description": "Create user successfully"
@@ -95,6 +89,146 @@
                     },
                     "200": {
                         "description": "TOKEN"
+                    }
+                }
+            }
+        },
+        "/tasks": {
+            "post": {
+                "description": "Criar a tarefa",
+                "tags": [
+                    "Taks"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "authorId": {
+                                        "type": "number"
+                                    }
+                                },
+                                "example": {
+                                    "title": "Preciso limpar a casa as 14:00",
+                                    "authorId": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "403": {
+                        "description": "Task not created"
+                    },
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/tasks/read": {
+            "post": {
+                "description": "Ler todas as taks do usuario",
+                "tags": [
+                    "Taks"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "authorId": {
+                                        "type": "number"
+                                    }
+                                },
+                                "example": {
+                                    "authorId": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "403": {
+                        "description": "error"
+                    },
+                    "200": {
+                        "description": "[Taks]"
+                    }
+                }
+            }
+        },
+        "/tasks/update": {
+            "put": {
+                "description": "atualizar uma taks do usuario",
+                "tags": [
+                    "Taks"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "authorId": {
+                                        "type": "number"
+                                    }
+                                },
+                                "example": {
+                                    "title": "nova taks",
+                                    "authorId": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "403": {
+                        "description": "error"
+                    },
+                    "202": {
+                        "description": "Taks atualizada"
+                    }
+                }
+            }
+        },
+        "/tasks/delete": {
+            "delete": {
+                "description": "deletar uma taks do usuario",
+                "tags": [
+                    "Taks"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "number"
+                                    }
+                                },
+                                "example": {
+                                    "id": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "403": {
+                        "description": "error"
+                    },
+                    "204": {
+                        "description": "Taks deletada"
                     }
                 }
             }
