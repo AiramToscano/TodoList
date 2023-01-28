@@ -3,7 +3,7 @@ import md5 from 'md5';
 import { Injectable } from '@nestjs/common';
 // import { JwtPayloadHandler } from '../interfaces/IJwt';
 import { User } from '../interfaces/users.dto';
-import { PrismaService } from 'src/model/PrismaService';
+import { PrismaService } from '../model/PrismaService';
 
 @Injectable()
 export class JWT {
