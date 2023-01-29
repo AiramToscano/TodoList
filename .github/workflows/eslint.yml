@@ -42,7 +42,7 @@ jobs:
           --ext .js,.jsx,.ts,.tsx
           --format @microsoft/eslint-formatter-sarif
           --output-file eslint-results.sarif
+        continue-on-error: true
   
       - name: Test
         run: npm run test:e2e
-        continue-on-error: true
