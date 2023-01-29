@@ -35,7 +35,6 @@ jobs:
           npm install eslint@8.10.0
           npm install @microsoft/eslint-formatter-sarif@2.1.7
           cd app && docker-compose up -d --build
-          npm run test:e2e
 
       - name: Run ESLint
         run: npx eslint .
@@ -43,4 +42,7 @@ jobs:
           --ext .js,.jsx,.ts,.tsx
           --format @microsoft/eslint-formatter-sarif
           --output-file eslint-results.sarif
+  
+      - name: Test
+        run: npm run test:e2e
         continue-on-error: true
