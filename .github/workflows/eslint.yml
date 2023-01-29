@@ -44,7 +44,7 @@ jobs:
           --output-file eslint-results.sarif
         continue-on-error: true
   
-      - name: Test
+      - name: Run Test
         run: |
           cd app/backend
           npm run test:e2e
