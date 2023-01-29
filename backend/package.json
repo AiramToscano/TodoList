@@ -20,8 +20,7 @@
     "test:watch": "jest src/tests/unit/**/*.test.ts --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "test:int": "/bin/sh ./scripts/db.sh && jest -i --no-cache --watch --config jest-int.json"
+    "test:e2e": "/bin/sh ./scripts/db.sh && jest --config ./src/test/jest-e2e.json"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -34,6 +33,7 @@
     "md5": "^2.3.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
+    "sinon": "^15.0.1",
     "swagger-ui-express": "^4.6.0",
     "typeorm": "^0.3.11"
   },

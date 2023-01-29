@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Test } from '@nestjs/testing';
-import { UsersModules } from '../../src/modules/users.module';
-import { PrismaService } from '../../src/model/PrismaService';
-import { UsersService } from '../../src/services/users.service';
-import { IServiceUser } from '../../src/interfaces/IUsersServices';
-import { UsersController } from '../../src/controllers/users.controller';
+import { UsersModules } from '../../modules/users.module';
+import { PrismaService } from '../../model/PrismaService';
+import { UsersService } from '../../services/users.service';
+import { IServiceUser } from '../../interfaces/IUsersServices';
+import { UsersController } from '../../controllers/users.controller';
 import { User } from './mocks/IUser.dto';
-import { Response } from 'express';
+import { Response } from 'superagent';
 
 const data = {
   username: 'airatoscano',
@@ -41,12 +41,12 @@ describe('todoService', () => {
       const user = await userService.create(data);
       expect(user.username).toBe('airatoscano');
     });
-    // it('create user Controle', async () => {
-    //   const user = await userController.createUser(
-    //     {username: 'airatoscano', password: 'sdasdasd'},
-
-    //     );
-    //   expect(user.);
-    // });
+    it('create user Controle', async () => {
+      const user = await userController.createUser(
+        {username: 'airatoscano', password: 'sdasdasd'},
+        Response,
+        );
+      expect(user.);
+    });
   });
 });

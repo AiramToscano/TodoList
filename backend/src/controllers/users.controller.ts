@@ -19,7 +19,7 @@ export class UsersController {
     private jwt: JWT,
   ) {}
 
-  @Post()
+  @Post('/')
   async createUser(@Body() data: User, @Res() res: Response): Promise<object> {
     try {
       await this.usersService.findUser(data);
