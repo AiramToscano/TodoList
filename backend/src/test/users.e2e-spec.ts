@@ -20,6 +20,38 @@ describe('Users', () => {
     await app.init();
   });
 
+  it(`/user username or password shorts`, () => {
+    return request(app.getHttpServer())
+      .post('/user')
+      .send({
+        username: 'no',
+        password: '23',
+      })
+      .expect(400)
+      .expect({ message: 'username or password shorts' });
+  });
+
+  it(`/user space not allowed`, () => {
+    return request(app.getHttpServer())
+      .post('/user')
+      .send({
+        username: 'antonio toscano',
+        password: 'airalobato',
+      })
+      .expect(400)
+      .expect({ message: 'space not allowed' });
+  });
+
+  it(`/user username or password required `, () => {
+    return request(app.getHttpServer())
+      .post('/user')
+      .send({
+        username: 'claudio',
+      })
+      .expect(400)
+      .expect({ message: 'username or password required' });
+  });
+
   it(`/user create users`, () => {
     return request(app.getHttpServer())
       .post('/user')

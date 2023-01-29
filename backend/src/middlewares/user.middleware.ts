@@ -9,7 +9,7 @@ export class UsersMiddleware implements NestMiddleware {
     if (!password || !username) {
       return res.status(400).json({ message: 'username or password required' });
     }
-    if (password.length < 3 || username < 3) {
+    if (password.length <= 3 || username <= 3) {
       return res.status(400).json({ message: 'username or password shorts' });
     }
     if (verificaEspaco) {
