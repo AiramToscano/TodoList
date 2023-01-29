@@ -1,4 +1,4 @@
-import { Task, TaskId } from '../interfaces/tasks.dto';
+import { Task, TaskId } from './tasks.dto';
 
 export interface ItaksServices {
   create(data: Task): Promise<any>;

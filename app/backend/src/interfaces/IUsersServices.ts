@@ -1,4 +1,4 @@
-import { User } from '../interfaces/users.dto';
+import { User } from './users.dto';
 
 export interface IusersServices {
   create(dataUser: User): Promise<any>;
