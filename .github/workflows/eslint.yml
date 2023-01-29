@@ -45,4 +45,4 @@ jobs:
         continue-on-error: true
   
       - name: Test
-        run: npm run test:e2e
+        run: npm test:e2e
