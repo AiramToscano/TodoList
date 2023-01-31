@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import { apiLogin } from '../utils/Apis';
 
 function Login() {
 //   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  //   const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
+  const TIME_ERROR = 3000;
 
   function loginClick(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -15,7 +17,11 @@ function Login() {
 
   async function handleSubmit(event: React.MouseEvent<HTMLElement>) {
     event.preventDefault();
-    console.log('olá mundo');
+    const api = await apiLogin(username, password);
+    if (api.response) {
+      setError(true);
+      setTimeout(() => { setError(false); }, TIME_ERROR);
+    }
   }
 
   return (
@@ -43,13 +49,13 @@ function Login() {
             onClick={ (e) => handleSubmit(e) }
           />
         </div>
-        {/* {error && (
+        {error && (
           <div className="error-message">
             <p>
-              Não foi possível fazer login.
+              Não foi possivel realizar o login.
             </p>
           </div>
-        )} */}
+        )}
       </form>
     </div>
   );
