@@ -69,7 +69,7 @@ export class TasksController {
           status: HttpStatus.FORBIDDEN,
           error: error.message,
         },
-        HttpStatus.FORBIDDEN,
+        HttpStatus.FORBIDDEN
         {
           cause: error,
         },
