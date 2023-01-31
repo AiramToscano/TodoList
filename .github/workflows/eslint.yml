@@ -38,4 +38,5 @@ jobs:
       - name: Run ESLint backend
         run:  |
          cd app/backend
+         npm i
          npm run lint
