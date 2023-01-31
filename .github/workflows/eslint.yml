@@ -46,5 +46,5 @@ jobs:
   
       - name: Run Test
         run: |
-          cd app/backend
+          docker exec -it app_backend sh
           npm run test:e2e
