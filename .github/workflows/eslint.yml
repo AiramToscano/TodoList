@@ -46,5 +46,5 @@ jobs:
   
       - name: Run Test
         run: |
-          winpty docker exec -it app_backend /bash
+          docker exec -it app_backend /bin/bash
           npm run test:e2e
