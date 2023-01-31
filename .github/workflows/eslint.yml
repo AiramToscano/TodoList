@@ -37,7 +37,8 @@ jobs:
           cd app && docker-compose up -d --build
 
       - name: Run ESLint
-        run: npx eslint .
+        run: |
+          npx eslint .
           --config .eslintrc.js
           --ext .js,.jsx,.ts,.tsx
           --format @microsoft/eslint-formatter-sarif
@@ -46,5 +47,6 @@ jobs:
   
       - name: Run Test
         run: |
-          docker exec -t app_backend sh
+          docker exec –it app_backend sh
           npm run test:e2e
+          exit
