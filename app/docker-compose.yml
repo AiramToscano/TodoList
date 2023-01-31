@@ -8,21 +8,20 @@ services:
     platform: linux/x86_64
     working_dir: /app-backend
     depends_on:
-      db:
+      postgresql:
         condition: service_healthy
     environment:
       - APP_PORT=3001
       # Os dados abaixo se referem ao container `db`
       # Dica: Relembre aqui da comunicação interna entre containers
-      - DATABASE_URL="postgresql://postgres:123456@localhost:5432/todolist"
     healthcheck:
       test: ["CMD", "lsof", "-t", "-i:3001"] # Caso utilize outra porta interna para o back, altere ela aqui também
       timeout: 10s
       retries: 5
-  db:
+  postgresql:
         image: postgres
         restart: always
-        container_name: db
+        container_name: postgresql
         platform: linux/x86_64
         logging:
           options:
@@ -33,6 +32,7 @@ services:
         environment:
         - POSTGRES_PASSWORD=123456
         - POSTGRES_USER=postgres
+        - POSTGRES_DB=todolist
         healthcheck:
          test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "postgres" ]
          timeout: 10s
