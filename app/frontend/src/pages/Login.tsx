@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { apiLogin } from '../utils/Apis';
 
 function Login() {
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
@@ -22,6 +22,7 @@ function Login() {
       setError(true);
       setTimeout(() => { setError(false); }, TIME_ERROR);
     }
+    if (!api.response) navigate('/home');
   }
 
   return (
