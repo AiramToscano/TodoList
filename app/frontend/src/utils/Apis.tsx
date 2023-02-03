@@ -12,9 +12,36 @@ export async function apiLogin(username: string, password: string) {
   }
 }
 
-export async function apiRandomUsers(page: number) {
+export async function apiRegister(username: string, password: string) {
   try {
-    const response = await axios.get(`https://randomuser.me/api/?page=${page}&results=12&seed=abc`);
+    const response = await axios.post(
+      'http://localhost:3001/user',
+      { username, password },
+    );
+    return response.data;
+  } catch (err) {
+    return err;
+  }
+}
+
+export async function apiCreatetaks(title: string, authorId: string) {
+  try {
+    const response = await axios.post(
+      'http://localhost:3001/tasks',
+      { title, authorId },
+    );
+    return response.data;
+  } catch (err) {
+    return err;
+  }
+}
+
+export async function apiReadTaks(authorId: string) {
+  try {
+    const response = await axios.post(
+      'http://localhost:3001/tasks/read',
+      { authorId },
+    );
     return response.data;
   } catch (err) {
     return err;
