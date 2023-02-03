@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { apiLogin } from '../utils/Apis';
+import Register from './Register';
 
 function Login() {
   const navigate = useNavigate();
@@ -22,8 +23,19 @@ function Login() {
       setError(true);
       setTimeout(() => { setError(false); }, TIME_ERROR);
     }
-    if (!api.response) navigate('/home');
+    if (!api.response) {
+      window.localStorage.setItem('userId', JSON.stringify(api.user.id));
+      navigate('/home');
+    }
   }
+
+  useEffect(() => {
+    const userId = window.localStorage.getItem('userId');
+    if (userId) {
+      const findremember = JSON.parse(userId);
+      if (findremember) navigate('/home');
+    }
+  }, []);
 
   return (
     <div>
@@ -58,6 +70,7 @@ function Login() {
           </div>
         )}
       </form>
+      <Register />
     </div>
   );
 }
