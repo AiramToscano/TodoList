@@ -47,3 +47,26 @@ export async function apiReadTaks(authorId: string) {
     return err;
   }
 }
+
+export async function apiDeleteTaks(id: string) {
+  try {
+    const response = await axios.delete(
+      `http://localhost:3001/tasks/delete/${id}`,
+    );
+    return response.data;
+  } catch (err) {
+    return err;
+  }
+}
+
+export async function apiupdateTaks(id: string, title: string) {
+  try {
+    const response = await axios.put(
+      'http://localhost:3001/tasks/update',
+      { id, title },
+    );
+    return response.data;
+  } catch (err) {
+    return err;
+  }
+}
