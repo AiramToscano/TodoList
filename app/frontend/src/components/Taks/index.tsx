@@ -1,35 +1,65 @@
 import React, {
   useEffect, useCallback, useState,
 } from 'react';
-import { apiReadTaks } from '../../utils/Apis';
-import { ITaks, IUser } from '../../Interfaces/ITaks';
+import { apiReadTaks, apiDeleteTaks } from '../../utils/Apis';
+import { ITaks } from '../../Interfaces/ITaks';
+import Button from '../Button';
+import FormEdit from '../FormEdit';
 
-function Taks(idUser: IUser) {
-  const { authorId } = idUser;
+function Taks() {
   const [taks, setTaks] = useState<ITaks[]>([]);
+  const [edittaks, setEditTaks] = useState(false);
+  const [idTaks, setIdTaks] = useState('');
+  const [titleTaks, settitleTaks] = useState('');
 
-  const ApiTaks = useCallback(async () => {
+  const ApiTaks = useCallback(async (authorId: string) => {
     const TaksksData = await apiReadTaks(authorId);
     setTaks(TaksksData);
   }, []);
 
-  //   function handleSubmit(obj : ICustomers) {
-  //     const { _id } = obj;
-  //     setUpdateConsumer(obj);
-  //     navigate(`/customers/${_id}`);
-  //   }
+  async function handleSubmitDelete(id: string) {
+    await apiDeleteTaks(id);
+  }
+
+  async function handleSubmitUpdate(id: string, title: string) {
+    setIdTaks(id);
+    settitleTaks(title);
+    setEditTaks(true);
+  }
 
   useEffect(() => {
-    ApiTaks();
+    const userId = window.localStorage.getItem('userId');
+    if (userId) {
+      const findUser = JSON.parse(userId);
+      ApiTaks(findUser.id);
+    }
   }, [taks]);
 
   return (
     <div>
-      {taks.length >= 1 ? taks.map((e, index) => (
+      {taks.length === 0 && <>Nenhuma tarefa cadastrada</>}
+      {taks.length >= 1 && !edittaks && taks.map((e, index) => (
         <div key={ index }>
           <p>{e.title}</p>
+          <div className="btn">
+            <Button
+              name="Deletar"
+              onClick={ () => handleSubmitDelete(e.id) }
+            />
+          </div>
+          <div className="btn">
+            <Button
+              name="Editar"
+              onClick={ () => handleSubmitUpdate(e.id, e.title) }
+            />
+          </div>
         </div>
-      )) : <h3>Nenhuma taks cadastrada</h3>}
+      ))}
+      {edittaks && <FormEdit
+        setEditTaks={ setEditTaks }
+        id={ idTaks }
+        title={ titleTaks }
+      />}
     </div>
   );
 }
