@@ -14,8 +14,7 @@ function Register() {
     event.preventDefault();
   }
 
-  async function handleSubmit(event: React.MouseEvent<HTMLElement>) {
-    event.preventDefault();
+  async function handleSubmit() {
     const api = await apiRegister(username, password);
     console.log(api);
     if (api.response) {
@@ -51,8 +50,8 @@ function Register() {
         </div>
         <div className="btn">
           <Button
-            type="submit"
-            onClick={ (e) => handleSubmit(e) }
+            name="registrar"
+            onClick={ () => handleSubmit() }
           />
         </div>
         {error && (
