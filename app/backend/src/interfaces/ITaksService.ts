@@ -1,9 +1,9 @@
-import { Task, TaskId } from './tasks.dto';
+import { Task } from './tasks.dto';
 
 export interface ItaksServices {
   create(data: Task): Promise<any>;
   readAll(id: string): Promise<any>;
-  upadateTaks(authorid: TaskId): Promise<any>;
+  upadateTaks(id: number, title: string): Promise<any>;
   deleteTaks(id: number): Promise<any>;
 }
 

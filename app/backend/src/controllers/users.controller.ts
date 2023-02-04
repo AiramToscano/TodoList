@@ -42,9 +42,13 @@ export class UsersController {
   @Post('/login')
   async LoginTaks(@Body() data: User, @Res() res: Response) {
     try {
-      await this.usersService.loginUser(data);
+      const user = await this.usersService.loginUser(data);
       const createJwt = await this.jwt.createJwt(data);
-      return res.status(HttpStatus.OK).json({ token: createJwt });
+      const obj = {
+        user,
+        createJwt,
+      };
+      return res.status(HttpStatus.OK).json(obj);
     } catch (error) {
       throw new HttpException(
         {

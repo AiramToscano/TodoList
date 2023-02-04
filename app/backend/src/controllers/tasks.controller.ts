@@ -5,6 +5,7 @@ import {
   HttpException,
   HttpStatus,
   Inject,
+  Param,
   Post,
   Put,
   Res,
@@ -61,7 +62,11 @@ export class TasksController {
     @Res() res: Response,
   ): Promise<object> {
     try {
-      const updateTask = await this.tasksService.upadateTaks(data);
+      const idNumber = Number(data.id);
+      const updateTask = await this.tasksService.upadateTaks(
+        idNumber,
+        data.title,
+      );
       return res.status(200).json(updateTask);
     } catch (error) {
       throw new HttpException(
@@ -77,10 +82,14 @@ export class TasksController {
     }
   }
 
-  @Delete('/delete')
-  async deleteTaks(@Body() id: number, @Res() res: Response): Promise<object> {
+  @Delete('/delete/:id')
+  async deleteTaks(
+    @Param('id') id: string,
+    @Res() res: Response,
+  ): Promise<object> {
     try {
-      const updateTask = await this.tasksService.deleteTaks(id);
+      const numberid = Number(id);
+      const updateTask = await this.tasksService.deleteTaks(numberid);
       return res.status(204).json(updateTask);
     } catch (error) {
       throw new HttpException(
