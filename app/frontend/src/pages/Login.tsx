@@ -16,15 +16,14 @@ function Login() {
     event.preventDefault();
   }
 
-  async function handleSubmit(event: React.MouseEvent<HTMLElement>) {
-    event.preventDefault();
+  async function handleSubmit() {
     const api = await apiLogin(username, password);
     if (api.response) {
       setError(true);
       setTimeout(() => { setError(false); }, TIME_ERROR);
     }
     if (!api.response) {
-      window.localStorage.setItem('userId', JSON.stringify(api.user.id));
+      window.localStorage.setItem('userId', JSON.stringify(api.user));
       navigate('/home');
     }
   }
@@ -58,8 +57,8 @@ function Login() {
         </div>
         <div className="btn">
           <Button
-            type="submit"
-            onClick={ (e) => handleSubmit(e) }
+            name="Entrar"
+            onClick={ () => handleSubmit() }
           />
         </div>
         {error && (
