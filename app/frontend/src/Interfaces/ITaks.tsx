@@ -1,8 +1,9 @@
 export interface ITaks {
     title: string,
     id: string,
+    authorId: string
 }
 
-export interface IUser {
-    authorId: string,
+export interface ITaksNew {
+    createTaks: string,
 }
