@@ -4,15 +4,16 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import { apiCreatetaks } from '../utils/Apis';
 import Taks from '../components/Taks';
+import Header from '../components/Header';
 
 function Home() {
   const navigate = useNavigate();
   const [createTaks, setCreateTaks] = useState('');
   const [idUser, setIdUser] = useState('');
 
-  async function handleSubmit(event: React.MouseEvent<HTMLElement>) {
-    event.preventDefault();
+  async function handleSubmit() {
     await apiCreatetaks(createTaks, idUser);
+    setCreateTaks('');
   }
 
   useEffect(() => {
@@ -20,12 +21,13 @@ function Home() {
     if (!userId) navigate('/login');
     if (userId) {
       const findUser = JSON.parse(userId);
-      setIdUser(findUser);
+      setIdUser(findUser.id);
     }
   }, []);
 
   return (
     <div>
+      <Header />
       <Input
         type="taks"
         value={ createTaks }
@@ -34,11 +36,11 @@ function Home() {
       />
       <div className="btn">
         <Button
-          type="submit"
-          onClick={ (e) => handleSubmit(e) }
+          name="Criar tarefa"
+          onClick={ () => handleSubmit() }
         />
       </div>
-      <Taks authorId={ idUser } />
+      <Taks />
     </div>
   );
 }
