@@ -37,7 +37,7 @@ function Taks() {
 
   return (
     <div>
-      {taks.length === 0 && <>Nenhuma tarefa cadastrada</>}
+      {taks.length === 0 && <>Nenhumas tarefa cadastrada</>}
       {taks.length >= 1 && !edittaks && taks.map((e, index) => (
         <div key={ index }>
           <p>{e.title}</p>
