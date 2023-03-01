@@ -2,14 +2,15 @@ import React from 'react';
 
 interface IButtonProps {
     name: string;
+    className?: string;
     onClick?: () => void,
 }
 
 function Button(object: IButtonProps) {
-  const { onClick, name } = object;
+  const { onClick, name, className } = object;
   return (
     <div>
-      <button type="submit" onClick={ onClick }>{name}</button>
+      <button className={ className } type="submit" onClick={ onClick }>{name}</button>
     </div>
   );
 }
