@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import style from './login.module.scss';
 import { apiLogin } from '../utils/Apis';
-import Register from './Register';
 
 function Login() {
   const navigate = useNavigate();
@@ -38,11 +38,12 @@ function Login() {
 
   return (
     <div>
-      <form id="login_form" onSubmit={ loginClick }>
+      <form id="login_form" className={ style.formclass } onSubmit={ loginClick }>
         <h4> Sign In</h4>
         <div>
           <Input
             type="username"
+            className={ style.fieldclass }
             value={ username }
             placeholder="Username"
             onChange={ (event) => setUsername(event.target.value) }
@@ -50,6 +51,7 @@ function Login() {
           <Input
             type="password"
             placeholder="Password"
+            className={ style.fieldclass }
             name="password"
             value={ password }
             onChange={ (event) => setPassword(event.target.value) }
@@ -58,6 +60,7 @@ function Login() {
         <div className="btn">
           <Button
             name="Entrar"
+            className={ style.submitclass }
             onClick={ () => handleSubmit() }
           />
         </div>
@@ -69,7 +72,6 @@ function Login() {
           </div>
         )}
       </form>
-      <Register />
     </div>
   );
 }

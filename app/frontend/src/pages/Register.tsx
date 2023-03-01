@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import style from './login.module.scss';
 import { apiRegister } from '../utils/Apis';
 
 function Register() {
@@ -31,11 +32,12 @@ function Register() {
 
   return (
     <div>
-      <form id="register_form" onSubmit={ registerClick }>
+      <form className={ style.formclass } onSubmit={ registerClick }>
         <h4> Register</h4>
         <div>
           <Input
             type="username"
+            className={ style.fieldclass }
             value={ username }
             placeholder="Username"
             onChange={ (event) => setUsername(event.target.value) }
@@ -43,6 +45,7 @@ function Register() {
           <Input
             type="password"
             placeholder="Password"
+            className={ style.fieldclass }
             name="password"
             value={ password }
             onChange={ (event) => setPassword(event.target.value) }
@@ -50,6 +53,7 @@ function Register() {
         </div>
         <div className="btn">
           <Button
+            className={ style.submitclass }
             name="registrar"
             onClick={ () => handleSubmit() }
           />
